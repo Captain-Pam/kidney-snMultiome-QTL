@@ -21,6 +21,7 @@ CASCADE classification and gene prioritization.
 
 ## Analysis code
 
+- [`cellranger_arc`](Main/cellranger_arc): alignment and quantification of paired Gene Expression and Chromatin Accessibility reads.
 - [`cellbender`](Main/cellbender): GEX matrix preparation and CellBender background removal.
 - [`eqtl`](Main/eqtl): cell-type-resolved cis-eQTL mapping.
 - [`susie`](Main/susie): GWAS and eQTL statistical fine-mapping.
