@@ -11,11 +11,13 @@ accessibility (caQTLs) and gene expression (eQTLs). These results provide a
 foundation for translating complex genetic associations into testable,
 cell-type-specific mechanistic hypotheses for kidney disease.
 
+![Study overview of the kidney single-nucleus multiome project](Figures/Figure1_Study%20overview.png)
+
 This repository provides analysis code supporting data processing, quality
 control and cell-type-resolved molecular QTL mapping. It also includes workflows
 for statistical fine-mapping, characterization of molecular QTL genetic
 architecture, sequence-to-function models, GWAS–molecular QTL colocalization,
-CASCADE-based regulatory cascade analysis and gene prioritization.
+CASCADE classification and gene prioritization.
 
 ## Analysis code
 
