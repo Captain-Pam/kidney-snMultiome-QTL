@@ -25,3 +25,21 @@ CASCADE classification and gene prioritization.
 - [`eqtl`](Main/eqtl): cell-type-resolved cis-eQTL mapping.
 - [`susie`](Main/susie): GWAS and eQTL statistical fine-mapping.
 - [`coloc`](Main/coloc): GWAS-eQTL colocalization.
+
+## Data availability
+
+The principal summary-level results from this study will be made publicly
+available upon publication. These resources will include single-nucleus eQTL
+and caQTL results, molecular QTL fine-mapping results, GWAS–molecular QTL
+colocalization results, sequence-to-function model outputs and
+gene-prioritization results for five major kidney-function GWAS loci.
+
+Key results can be explored through the [interactive Kidney single-nucleus
+multiome portal](https://35.255.159.98.sslip.io/kidney-snmultiome/). This
+temporary URL will be replaced with a permanent domain upon publication.
+
+## Contact
+
+For enquiries about this study, please contact the corresponding authors:
+Katalin Susztak (ksusztak@pennmedicine.upenn.edu) and David Kelley
+(drk@calicolabs.com).
