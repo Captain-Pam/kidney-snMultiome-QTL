@@ -1,4 +1,4 @@
-# kidney-snMultiome-QTL
+# Kidney single-nucleus multiome project
 
 ## Overview
 
@@ -6,7 +6,7 @@ This repository contains custom analysis code supporting the manuscript on singl
 
 ## Analysis code
 
-- [`cellbender`](1_code/cellbender): GEX matrix preparation and CellBender background removal.
-- [`eqtl`](1_code/eqtl): cell-type-resolved cis-eQTL mapping.
-- [`susie`](1_code/susie): GWAS and eQTL statistical fine-mapping.
-- [`coloc`](1_code/coloc): GWAS-eQTL colocalization.
+- [`cellbender`](Main/cellbender): GEX matrix preparation and CellBender background removal.
+- [`eqtl`](Main/eqtl): cell-type-resolved cis-eQTL mapping.
+- [`susie`](Main/susie): GWAS and eQTL statistical fine-mapping.
+- [`coloc`](Main/coloc): GWAS-eQTL colocalization.
