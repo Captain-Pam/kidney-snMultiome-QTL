@@ -38,6 +38,12 @@ Key results can be explored through the [interactive Kidney single-nucleus
 multiome portal](https://35.255.159.98.sslip.io/kidney-snmultiome/). This
 temporary URL will be replaced with a permanent domain upon publication.
 
+## Citation
+
+Until the associated manuscript becomes publicly available, please cite this
+repository using its URL and the specific commit or release used. Once
+available, the manuscript should be cited as the primary reference.
+
 ## Contact
 
 For enquiries about this study, please contact the corresponding authors:
