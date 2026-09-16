@@ -2,38 +2,34 @@
 
 Two deep-learning models that predict chromatin accessibility and gene
 expression directly from DNA sequence, trained on the kidney snMultiome atlas
-and used to score and interpret molecular QTL variants.
+and used to score and interpret molecular QTL variants. Model architectures,
+training settings and analysis parameters are described in the paper methods;
+this README covers what the code does and how to run it.
 
-| | **ChromBPNet** | **Cerberus** |
-|---|---|---|
-| Context | 2,114 bp | 786,432 bp |
-| Output | 1 kb base-resolution ATAC profile + total counts | 32 bp bins, 182 human + 373 mouse tracks |
-| Scope | one model per cell type | one model, all cell types and both species |
-| Predicts | accessibility | accessibility **and** expression |
-| Folds | 5 | 8 |
-| Framework | TensorFlow | PyTorch (baskerville) |
+- **ChromBPNet** — short-context, one model per cell type, accessibility only.
+- **Cerberus** — long-context, a single model covering all cell types and both
+  species, predicting accessibility *and* expression.
 
-They are complementary. ChromBPNet sees only the local sequence, so a variant
-effect it reports is necessarily local. Cerberus sees the whole locus, so it can
-score a variant's effect on a gene hundreds of kilobases away — but to compare
-the two on accessibility, Cerberus is restricted to a matched local window.
+They are complementary. ChromBPNet sees only local sequence, so any effect it
+reports is necessarily local. Cerberus sees the whole locus and can score a
+variant's effect on a distant gene — but to compare the two on accessibility,
+Cerberus is restricted to a matched local window.
 
-## Layout
+## Folders
 
-```
-data/         pseudobulk coverage and the model targets files
-chrombpnet/   peak calling, training, variant scoring, attributions
-cerberus/     training data, fine-tuning, evaluation, scoring, ISM
-figures/      all panels and the scored-variant tables
-```
+| Folder | What it does |
+|--------|--------------|
+| `data/` | turns aligned multiome reads into per-cell-type coverage, and builds the targets table listing the tracks Cerberus predicts |
+| `chrombpnet/` | calls peaks, trains the per-cell-type models, scores variants, and computes per-variant and genome-wide attributions |
+| `cerberus/` | builds the training examples, fine-tunes and evaluates the folds, scores variants for accessibility and expression, and runs in-silico mutagenesis |
+| `figures/` | draws every panel and writes the scored-variant tables, from cached scores only |
 
-Each directory has its own README with an input→output table per script.
+Each folder has its own README with a script-by-script table.
 
 ## Getting started
 
 ```bash
-cp config.example.sh config.sh    # then edit every path in it
-conda env create -f environment.yml
+cp config.example.sh config.sh    # then edit the paths in it
 ```
 
 `config.sh` is the single place paths live. Shell scripts `source` it; Python
@@ -41,73 +37,53 @@ scripts parse the same file through `figlib.load_config()`. Nothing in this
 repository is a data file.
 
 **The released dataset starts at per-cell-type fragments and `.w5` coverage.**
-`data/` documents how those were produced from raw Cell Ranger output, but you
-do not need to rerun it — point `config.sh` at the downloaded files and start at
-`chrombpnet/` or `cerberus/`.
+`data/` documents how those were produced, but you do not need to rerun it —
+point `config.sh` at the downloaded files and start at `chrombpnet/` or
+`cerberus/`.
 
-**To redraw the figures you need neither model.** The plotting scripts read
-cached score tables and predictions, so `figures/` runs in the `s2f` environment
-alone. Only the scoring and training stages need the model frameworks.
+**Redrawing the figures needs neither model.** The plotting scripts read cached
+score tables and predictions, so `figures/` runs without a GPU and without
+either model framework.
 
 ## Environments
 
-Three, because the two frameworks conflict:
+Two, because the frameworks conflict:
 
 | Environment | For |
 |---|---|
-| `s2f` (`environment.yml`) | everything in `figures/`, and the ensembling scripts |
-| `baskerville` | Cerberus training, `hound_snp`, `hound_ism_snp`, `hound_eval` |
-| `chrombpnet` | ChromBPNet training, contributions, `variant-scorer` |
+| `baskerville` | Cerberus training, scoring and ISM — and the figures, whose dependencies it already provides |
+| `chrombpnet` | ChromBPNet training, attributions, and variant-scorer |
 
 Scripts are invoked through console entry points (`hound_*`, `chrombpnet`), so
 no repository paths are hardcoded.
 
-> Two different packages are called **baskerville**. The PyTorch one
-> (`baskerville`, formerly `baskerville-torch`) trains and scores Cerberus. The
-> TensorFlow one (`calico/baskerville`) supplies `bw_w5.py`, used once in
-> `data/` to convert bigWigs. Both are needed; they are not interchangeable.
+Pin baskerville to a revision providing `--local_window` and the `window`
+targets column. Without it, `hound_snp --local_window` is **silently ignored**
+and caQTL scores come out whole-sequence rather than local — plausible numbers
+that are not comparable to the published ones or to ChromBPNet.
 
-Pin the PyTorch baskerville to a revision providing `--local_window` and the
-`window` targets column. Without it, `hound_snp --local_window` is **silently
-ignored** and the caQTL scores are whole-sequence rather than local — plausible
-numbers that are not comparable to the published ones or to ChromBPNet.
-
-## Pipeline
+## How the stages chain
 
 ```
    released fragments + .w5 coverage
         │
-        ├── chrombpnet/  peaks ──> 5 fold models ──> variant scores, SHAP
+        ├── chrombpnet/  peaks ──> fold models ──> variant scores, attributions
         │                                                  │
-        └── cerberus/    hound_data ──> 8 fold models ──> logSUM / logSED, ISM
+        └── cerberus/    training data ──> fold models ──> scores, ISM
                                                            │
                                           figures/  panels + scored tables
 ```
 
-Both models score **the same caQTL variant set**: the VCF is built once by
-`cerberus/score/caqtl/1_prepare_variants.py` and reused, so the two score
-columns are directly comparable.
-
-## Statistics
-
-| Statistic | Model | Meaning |
-|---|---|---|
-| `logfc` | ChromBPNet | log fold-change in predicted total counts between alleles |
-| `logSUM` | Cerberus | log ratio of predicted coverage summed over ±512 bp |
-| `covgene/logSED` | Cerberus | log ratio of predicted RNA summed over a gene's exons |
-
-All are alternate-minus-reference in hg38 orientation, and all are averaged
-across folds. See `figures/README.md` on aligning eQTL effect sizes to that
-orientation.
+Both models score **the same caQTL variant set** — the VCF is built once by
+`cerberus/score/caqtl/1_prepare_variants.py` and reused — so the two score
+columns are directly comparable. All scores are alternate-minus-reference in
+hg38 orientation and averaged across folds.
 
 ## Data access
 
-Model inputs derived from individual-level genotypes are controlled-access and
-are referenced by `config.sh`, never distributed here:
-
-- donor genotypes (`GENOTYPE_VCF`) — the genotype-stratified coverage panel
-- RASQUAL caQTL results (`RASQUAL_CAQTL_DIR`)
-- caQTL, eQTL and GWAS fine-mapping (`CAQTL_SUSIE_TSV`, `EQTL_SUSIE_TSV`, `GWAS_SUSIE_DIR`)
+Inputs derived from individual-level genotypes are controlled-access. They are
+referenced through `config.sh` and never distributed here: donor genotypes,
+RASQUAL caQTL results, and the caQTL, eQTL and GWAS fine-mapping outputs.
 
 The public BioProjects contributing tracks to the model are listed in
 `data/README.md`.
@@ -115,5 +91,4 @@ The public BioProjects contributing tracks to the model are listed in
 ## Citation
 
 ChromBPNet, TF-MoDISco and variant-scorer are from the Kundaje lab; baskerville
-and the Cerberus architecture are from Calico. See each directory's README for
-the tools it uses.
+and the Cerberus architecture are from Calico.

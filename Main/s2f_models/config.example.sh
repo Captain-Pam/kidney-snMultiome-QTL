@@ -65,10 +65,9 @@ export BLACKLIST_EXT=/path/to/blacklist_ext1057.bed
 # ─── External tools ───────────────────────────────────────────────────────────
 # Local clone of the kundajelab variant-scorer repository.
 export VARIANT_SCORER_SRC=/path/to/variant-scorer/src
-# baskerville (PyTorch) and chrombpnet are expected on PATH via their conda
-# environments; only their console entry points are used.
-export CONDA_ENV_BASKERVILLE=baskerville
-export CONDA_ENV_CHROMBPNET=chrombpnet
+# baskerville and chrombpnet are called through their console entry points, so
+# they only need to be on PATH — activate the right environment before running
+# a stage. See README.md.
 
 # ─── Annotation and motifs ────────────────────────────────────────────────────
 export GENCODE_GTF=/path/to/gencode.v48.basic.annotation.gtf

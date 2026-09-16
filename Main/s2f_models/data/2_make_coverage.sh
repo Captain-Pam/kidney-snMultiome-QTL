@@ -66,8 +66,7 @@ bamCoverage --filterRNAstrand reverse --binSize 1 --skipNAs -p 32 \
     -b "${MERGED_BAM}" -o "${BW_OUT}/${CT}_rna+.bw"
 
 # ── bigWig -> .w5 ─────────────────────────────────────────────────────────────
-# bw_w5.py ships with the TensorFlow baskerville repository (calico/baskerville),
-# which is a different package from the PyTorch baskerville used for training.
+# .w5 is the HDF5 coverage format hound_data reads directly.
 for TRACK in atac rna+ rna-; do
     bw_w5.py "${BW_OUT}/${CT}_${TRACK}.bw" "${BW_OUT}/${CT}_${TRACK}.w5"
 done
