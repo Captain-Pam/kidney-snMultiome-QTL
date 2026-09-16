@@ -26,6 +26,7 @@ CASCADE classification and gene prioritization.
 - [`eqtl`](Main/eqtl): cell-type-resolved cis-eQTL mapping.
 - [`susie`](Main/susie): GWAS and eQTL statistical fine-mapping.
 - [`coloc`](Main/coloc): GWAS-eQTL colocalization.
+- [`s2f_models`](Main/s2f_models): sequence-to-function models (ChromBPNet and a fine-tuned Cerberus) — training, variant effect scoring, attribution and figures.
 
 ## Data availability
 

@@ -1,0 +1,5 @@
+# Local configuration: copy config.example.sh to config.sh and edit it.
+config.sh
+
+__pycache__/
+*.pyc

@@ -1,0 +1,11 @@
+# caQTL examples drawn by caqtl_examples.py, one column each.
+#
+# Selected for a large, cell-type-specific predicted effect on which both models
+# agree in direction, and a motif spanning the variant. See the README.
+#
+# variant_key must match the prediction npz filenames and the ISM `label`.
+variant_key	label	motif_id	motif_name	chrom	pos	celltype
+chr18_74669588_T_C	chr18:74669588:T:C	MA0046.2	HNF1A	chr18	74669588	PT
+chr1_59107669_C_T	chr1:59107669:C:T	MA0052.4	MEF2A/B	chr1	59107669	TAL
+chr5_181152560_A_G	chr5:181152560:A:G	MA0031.1	FOXS1/D1	chr5	181152560	IC
+chr4_107693236_G_A	chr4:107693236:G:A	MA1954.1	FOXO1::ELK1/3	chr4	107693236	EC

@@ -1,0 +1,20 @@
+# Datasets contributing tracks to a model head, in track order.
+# Columns: identifier_prefix <TAB> dataset_label <TAB> w5_directory
+#
+# Edit the directories, then:
+#   python 3_make_targets.py --manifest manifest.tsv \
+#       --out targets/kidney_targets_w5_human.txt --local
+#
+# ─── Human head (182 tracks: 66 ATAC, 58 RNA+, 58 RNA-) ───────────────────────
+Susztak	Susztak_CKD_multiome	/path/to/susztak/bw_w5
+PRJNA909297	Ledru_Control_multiome	/path/to/PRJNA909297/bw_w5
+PRJNA771425	Muto_PKD_paired	/path/to/PRJNA771425/bw_w5
+PRJNA1057812	Muto_AKI_paired	/path/to/PRJNA1057812/bw_w5
+#
+# ─── Mouse head (373 tracks: 127 ATAC, 123 RNA+, 123 RNA-) ────────────────────
+# Put these in a separate manifest and write kidney_targets_w5_mouse.txt.
+# White	White_CKD_multiome	/path/to/white_mouse/bw_w5
+# PRJNA1062423	Chen_timeseries_multiome	/path/to/PRJNA1062423/bw_w5
+# PRJNA1117459	Muto_PKD_multiome	/path/to/PRJNA1117459/bw_w5
+# PRJNA1057807	Muto_IRI_ATAC	/path/to/PRJNA1057807/bw_w5
+# PRJNA578393	Kirita_IRI_RNA	/path/to/PRJNA578393/bw_w5

@@ -1,0 +1,78 @@
+{
+  "train": {
+    "batch_size": 2,
+    "optimizer": "adamw",
+    "schedule": "free",
+    "beta1": 0.9,
+    "beta2": 0.99,
+    "learning_rate": 0.0003,
+    "warmup_steps": 1500,
+    "train_epochs_max": 20,
+    "weight_decay": 0.015,
+    "global_clipnorm": 1.0,
+    "loss": "poisson_mn",
+    "total_weight": 0.25,
+    "weight_exp": 8,
+    "weight_range": 10,
+    "mix_dtype": "bfloat16",
+    "num_workers": 4,
+    "compile": true,
+    "weight_decay_rules": [
+      {
+        "regex": "bias",
+        "weight_decay": 0.0
+      },
+      {
+        "regex": "norm.*weight",
+        "weight_decay": 0.0001
+      },
+      {
+        "regex": "heads.*weight",
+        "weight_decay": 0.0001
+      }
+    ]
+  },
+  "model": {
+    "pretrained_model": "PRETRAINED_MODEL",
+    "seq_length": 786432,
+    "act_func": "silu",
+    "trunk": [
+      {
+        "name": "ConvDNA",
+        "out_channels": 768,
+        "kernel_size": 13,
+        "pool_size": 2
+      },
+      {
+        "name": "ConvTower",
+        "in_channels": 768,
+        "out_channels": 1536,
+        "kernel_size": 5,
+        "divisible_by": 64,
+        "norm_type": "batch",
+        "pool_size": 2,
+        "repeat": 4
+      },
+      {
+        "name": "HydraTower",
+        "channels": 1536,
+        "expand": 1.6667,
+        "d_state": 1,
+        "headdim": 128,
+        "dropout": 0.08,
+        "grad_checkpoint": true,
+        "repeat": 8
+      }
+    ],
+    "head_human": {
+      "name": "Final",
+      "in_channels": 1536,
+      "num_targets": 182
+    },
+    "head_mouse": {
+      "name": "Final",
+      "in_channels": 1536,
+      "num_targets": 373
+    }
+  }
+}

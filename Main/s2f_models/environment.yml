@@ -1,0 +1,30 @@
+# Environment for the scoring, interpretation and plotting stages.
+#
+#   conda env create -f environment.yml && conda activate s2f
+#
+# This is enough to regenerate every figure from released score tables. Model
+# training and variant scoring additionally need the two upstream tools, which
+# have conflicting deep-learning stacks and must live in their own environments:
+#
+#   baskerville (PyTorch)  — Cerberus training, hound_snp, hound_ism_snp, hound_eval
+#   chrombpnet (TensorFlow) — ChromBPNet training, contributions, variant-scorer
+#
+# See README.md.
+name: s2f
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - h5py
+  - matplotlib
+  - logomaker
+  - pysam
+  - pybigwig
+  - pybedtools
+  - bedtools
+  - samtools
+  - tabix
