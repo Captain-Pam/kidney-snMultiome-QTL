@@ -2,7 +2,7 @@
 # Tuning - choose the number of genotype PCs and PEER factors.
 #
 # Metric: number of eGenes at permutation p < 0.05 (from src/map_cis.py).
-#   - genotype PCs: swept on a single representative cell type (PT), PEER fixed at 5
+#   - genotype PCs: swept on a single representative cell type (PTS), PEER fixed at 5
 #   - PEER factors: swept per cell type, no genotype PCs
 #
 # Outputs:
@@ -18,9 +18,9 @@ prep=prepare_data
 gpu="--partition=gpu --gres=gpu:1 -c 4 --mem=23000 --time=1-00:00:00"
 
 #############################
-# tune genotype PCs (on PT) #
+# tune genotype PCs (on PTS) #
 #############################
-ct=PT
+ct=PTS
 mkdir -p tune/tune_pc
 
 # n_pc = 0 (no genotype PCs)
@@ -40,7 +40,7 @@ done
 # tune PEER (per cell type) #
 ##############################
 mkdir -p tune/tune_peer
-for ct in CNT_CD_PC DCT DTL_ATL EC IC Immune PEC PT Podocyte Stromal TAL; do
+for ct in CNT_CD_PC DCT DTL_ATL EC IC Immune PEC PTS Podocyte Stromal TAL injPT; do
     for n_peer in 5 10 15 20; do
         sbatch ${gpu} --job-name=peer_${ct}_${n_peer} --output=tune/tune_peer/${ct}_${n_peer}.out \
             --wrap="source ~/.bashrc && conda activate tensorqtl && \

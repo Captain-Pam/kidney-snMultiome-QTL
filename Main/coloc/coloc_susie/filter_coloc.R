@@ -7,10 +7,10 @@ var2pos <- function(var_id) {
     return(pos)
 }
 
-# filter PIP>0.8
+# Filter colocalization results at PP.H4 >= 0.7.
 outputs <- fread('coloc_all.csv')
 outputs <- unique(outputs) # duplicates because i computed some loci multiple times.
-outputs <- outputs[which(outputs$PP.H4.abf>0.8),]
+outputs <- outputs[which(outputs$PP.H4.abf >= 0.7),]
 outputs[, top_snp := as.character(NA)]
 outputs[, cond_pph4 := as.numeric(NA)]
 
@@ -90,4 +90,4 @@ for (i in 1:nrow(outputs)) {
     print(i)
 }
 
-fwrite(outputs, 'coloc_0.8.csv')
+fwrite(outputs, 'coloc_0.7.csv')

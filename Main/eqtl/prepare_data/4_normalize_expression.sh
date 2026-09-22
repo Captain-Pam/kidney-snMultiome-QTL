@@ -19,7 +19,7 @@ gtex=gtex-pipeline/qtl/src   # path to the GTEx pipeline scripts
 
 mkdir -p prepare_data/bed
 
-for ct in CNT_CD_PC DCT DTL_ATL EC IC Immune PEC PT Podocyte Stromal TAL; do
+for ct in CNT_CD_PC DCT DTL_ATL EC IC Immune PEC PTS Podocyte Stromal TAL injPT; do
     python ${gtex}/eqtl_prepare_expression.py \
         ${qc_dir}/${ct}/tpm.gct \
         ${qc_dir}/${ct}/raw.gct \

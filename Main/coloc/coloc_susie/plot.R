@@ -11,7 +11,7 @@ var2pos <- function(var_id) {
     return(pos)
 }
 
-coloc_res <- fread('coloc_0.8.csv')
+coloc_res <- fread('coloc_0.7.csv')
 
 # make exons_df shorter
 # use all transcripts of coloc genes
@@ -119,4 +119,3 @@ for (i in 1:nrow(coloc_res)) {
 
     print(i)
 }
-

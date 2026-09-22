@@ -127,8 +127,8 @@ for (i in cts) {
         output_df[j, 'eQTL_z'] <- df[top_snp, 'z.df1']
         output_df[j, 'eGFR_z'] <- df[top_snp, 'z.df2']
 
-        # save RDS when PP.H4.abf>0.8
-        if (output_df[j, 'PP.H4.abf']>0.8) {
+        # Save RDS when PP.H4.abf >= 0.7.
+        if (output_df[j, 'PP.H4.abf'] >= 0.7) {
             save_list <- list(eqtl = d1, egfr = d2, res = res)
             saveRDS(save_list, sprintf('coloc_res/%s.%s.%s.rds', i, g, l))            
         }
@@ -139,7 +139,7 @@ for (i in cts) {
     all_output_df[[i]] <- output_df
 }
 
-# Combine and filter for PP.H4.abf > 0.8
+# Combine and filter for PP.H4.abf >= 0.7.
 combined <- rbindlist(all_output_df)
-combined <- combined[PP.H4.abf > 0.8]
-fwrite(combined, 'coloc_0.8_z.csv')
+combined <- combined[PP.H4.abf >= 0.7]
+fwrite(combined, 'coloc_0.7_z.csv')

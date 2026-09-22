@@ -4,7 +4,7 @@ Cell-type-resolved cis-eQTL mapping in kidney snMultiome pseudobulk, using
 [tensorQTL](https://github.com/broadinstitute/tensorqtl). The pipeline runs in
 three stages: **prepare data → tune hyperparameters → final run**.
 
-Cell types: `CNT_CD_PC DCT DTL_ATL EC IC Immune PEC PT Podocyte Stromal TAL`.
+Cell types: `CNT_CD_PC DCT DTL_ATL EC IC Immune PEC PTS Podocyte Stromal TAL injPT`.
 
 All commands are run from this `eqtl/` directory. Absolute paths have been
 replaced with placeholders under `data/` — edit them for your environment.
@@ -46,7 +46,7 @@ Genotype PCs are prepared for tuning only.
 `run_tune.sh` sweeps the two nuisance-covariate counts, scoring each by the
 **number of eGenes at permutation p < 0.05**:
 
-- **Genotype PCs** — swept on one cell type (PT). PC = 0 was optimal, so **no
+- **Genotype PCs** — swept on one cell type (PTS). PC = 0 was optimal, so **no
   genotype PCs are used**.
 - **PEER factors** — swept per cell type over k ∈ {5, 10, 15, 20}
   (`select_hyperparams.py` → `tune/peer_optimal.csv`).

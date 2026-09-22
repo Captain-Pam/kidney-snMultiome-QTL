@@ -17,7 +17,7 @@ gpu="--partition=gpu --gres=gpu:1 -c 4 --mem=23000 --time=3-00:00:00"
 
 mkdir -p run/outputs
 
-for ct in CNT_CD_PC DCT DTL_ATL EC IC Immune PEC PT Podocyte Stromal TAL; do
+for ct in CNT_CD_PC DCT DTL_ATL EC IC Immune PEC PTS Podocyte Stromal TAL injPT; do
     rna=${prep}/bed/${ct}.expression.bed.gz
     cov=${prep}/peer/${ct}_peer${n_peer}.PEER_covariates.txt,${prep}/covs/covs_${ct}.txt
 

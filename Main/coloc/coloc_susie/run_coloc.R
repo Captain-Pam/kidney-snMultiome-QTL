@@ -70,7 +70,7 @@ for (i in cts) {
             res_list[[length(res_list) + 1 ]] <- res
     
             if (all(is.na(res$PP.H4.abf))) {next}
-            if (max(res$PP.H4.abf)<0.8) {next}
+            if (max(res$PP.H4.abf) < 0.7) {next}
     
             outdir <- sprintf('outputs/%s_%s_%s', i, l, g)
             dir.create(outdir)

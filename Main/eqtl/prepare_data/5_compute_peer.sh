@@ -13,7 +13,7 @@
 gtex=gtex-pipeline/qtl/src   # path to the GTEx pipeline scripts
 mkdir -p prepare_data/peer
 
-for ct in CNT_CD_PC DCT DTL_ATL EC IC Immune PEC PT Podocyte Stromal TAL; do
+for ct in CNT_CD_PC DCT DTL_ATL EC IC Immune PEC PTS Podocyte Stromal TAL injPT; do
     sbatch --job-name=peer_${ct} --output=prepare_data/peer/${ct}.out \
            --time=24:00:00 --mem=32G \
            --wrap="source ~/.bashrc && conda activate peer && \

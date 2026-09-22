@@ -14,10 +14,10 @@ var2pos <- function(var_id) {
 ##############################
 egfr_list <- readRDS('data/gwas/egfr_list.rds') # sumstats for each locus
 
-cts <- c('CNT_CD_PC', 'DCT', 'Endothelial', 'Immune', 'Intercalated', 
-         'PT', 'Stromal', 'Thick_limb', 'Thin_limb')
+cts <- c('CNT_CD_PC', 'DCT', 'DTL_ATL', 'EC', 'IC', 'Immune', 'PEC', 'PTS',
+         'Podocyte', 'Stromal', 'TAL', 'injPT')
 
-coloc_pairs <- fread('coloc_0.8.csv')
+coloc_pairs <- fread('coloc_0.7.csv')
 coloc_pairs[, REF := as.character(NA)]
 coloc_pairs[, ALT := as.character(NA)]
 coloc_pairs[, eQTL_z := as.numeric(NA)]
@@ -107,4 +107,4 @@ for (i in cts) {
     }
 }
 
-fwrite(coloc_pairs, 'coloc_0.8_z.csv')
+fwrite(coloc_pairs, 'coloc_0.7_z.csv')
