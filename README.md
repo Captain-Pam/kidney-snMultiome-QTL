@@ -37,7 +37,7 @@ colocalization results, sequence-to-function model outputs and
 gene-prioritization results for five major kidney-function GWAS loci.
 
 Key results can be explored through the [interactive Kidney single-nucleus
-multiome portal](https://35.255.159.98.sslip.io/kidney-snmultiome/). This
+multiome portal](https://35.226.63.193.sslip.io/Kidney_snMultiome/). This
 temporary URL will be replaced with a permanent domain upon publication.
 
 ## Citation
