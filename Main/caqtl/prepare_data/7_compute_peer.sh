@@ -12,7 +12,7 @@ OUTPUT_ROOT="prepare_data/output/peer"
 CELL_TYPES=(CNT_CD_PC DCT DTL_ATL EC IC Immune PEC PTS Podocyte Stromal TAL injPT)
 PEER_COUNTS=(1 2 3 4 5 10)
 
-mkdir -p "$OUTPUT_ROOT" prepare_data/logs
+mkdir -p "$OUTPUT_ROOT"
 
 for cell_type in "${CELL_TYPES[@]}"; do
     input_bed="${INPUT_ROOT}/${cell_type}/${cell_type}.chr1_peak.bed.gz"
@@ -20,8 +20,8 @@ for cell_type in "${CELL_TYPES[@]}"; do
 
     sbatch \
         --job-name="peer_${cell_type}" \
-        --output="prepare_data/logs/peer_${cell_type}.out" \
-        --error="prepare_data/logs/peer_${cell_type}.err" \
+        --output="prepare_data/peer_${cell_type}.out" \
+        --error="prepare_data/peer_${cell_type}.err" \
         --time=24:00:00 \
         --mem=32G \
         --wrap="set -euo pipefail; for k in ${PEER_COUNTS[*]}; do Rscript ${GTEX_QTL_DIR}/src/run_PEER.R ${input_bed} ${OUTPUT_ROOT}/${cell_type}_peer\${k} \${k}; done"

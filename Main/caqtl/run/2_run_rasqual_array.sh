@@ -9,8 +9,8 @@
 #SBATCH --mem=40G
 #SBATCH --time=3-00:00:00
 #SBATCH --partition=genoa-std-mem
-#SBATCH --output=run/logs/rasqual_%A_%a.out
-#SBATCH --error=run/logs/rasqual_%A_%a.err
+#SBATCH --output=run/rasqual_%A_%a.out
+#SBATCH --error=run/rasqual_%A_%a.err
 
 set -euo pipefail
 

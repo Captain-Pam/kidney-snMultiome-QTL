@@ -9,8 +9,8 @@
 #SBATCH --mem=40G
 #SBATCH --time=3-00:00:00
 #SBATCH --partition=genoa-std-mem
-#SBATCH --output=tune/logs/tune_%A_%a.out
-#SBATCH --error=tune/logs/tune_%A_%a.err
+#SBATCH --output=tune/tune_%A_%a.out
+#SBATCH --error=tune/tune_%A_%a.err
 
 set -euo pipefail
 

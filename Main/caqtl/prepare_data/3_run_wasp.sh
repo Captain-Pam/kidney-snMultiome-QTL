@@ -9,8 +9,8 @@
 #SBATCH --mem=32G
 #SBATCH --time=2-00:00:00
 #SBATCH --partition=genoa-lrg-mem
-#SBATCH --output=prepare_data/logs/wasp_%A_%a.out
-#SBATCH --error=prepare_data/logs/wasp_%A_%a.err
+#SBATCH --output=prepare_data/wasp_%A_%a.out
+#SBATCH --error=prepare_data/wasp_%A_%a.err
 
 set -euo pipefail
 

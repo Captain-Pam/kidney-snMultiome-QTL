@@ -105,9 +105,3 @@ For each cell type, `samples.qc.txt` defines the donor order used by the BAM
 list, count matrix, covariate matrix and VCF. `master_peaks.tsv` is sorted by
 chr1-chr22, start and end and contains the stable one-based `rasqual_index`
 used by all RASQUAL tasks.
-
-## Slurm logs
-
-Create `prepare_data/logs`, `tune/logs` and `run/logs` before submitting the
-corresponding Slurm scripts. The public scripts do not specify a Slurm account
-and do not contain personal filesystem paths or sample identifiers.

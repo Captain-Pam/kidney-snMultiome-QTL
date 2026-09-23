@@ -9,8 +9,8 @@
 #SBATCH --mem=12G
 #SBATCH --time=12:00:00
 #SBATCH --partition=genoa-std-mem
-#SBATCH --output=prepare_data/logs/split_%A_%a.out
-#SBATCH --error=prepare_data/logs/split_%A_%a.err
+#SBATCH --output=prepare_data/split_%A_%a.out
+#SBATCH --error=prepare_data/split_%A_%a.err
 
 set -euo pipefail
 
